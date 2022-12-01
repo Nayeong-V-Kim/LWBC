@@ -1,0 +1,11 @@
+python main_byol.py \
+  -a resnet18 \
+  --lr 0.15 \
+  --batch_size 64 --epochs 250 \
+  --gpus 0 \
+  --save_freq 1 \
+  --input_size 224 \
+  --byol_hidden_dim 256 \
+  --byol_dim 64 \
+  --data /root/checkpoints/train_test \
+  --save_dir './'

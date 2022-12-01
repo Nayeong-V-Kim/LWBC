@@ -1,0 +1,1 @@
+python LWBC_celebA.py --alpha=0.02 --batch_size=256 --dataset=celebA_Blond_Hair --epoch=30 --kd_lambda=0.6 --kd_temperature=2.5 --loss_scale=1 --lr=6e-3 --num_classifier=40 --optimizer=Adam --seed=1 --set_size=300 --temperature=150 --warmup=5 --weight_decay=0

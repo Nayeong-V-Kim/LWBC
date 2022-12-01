@@ -1,0 +1,12 @@
+python main_byol.py \
+  -a resnet18 \
+  --lr 0.15 \
+  --batch_size 256 --epochs 800 \
+  --gpus 0 \
+  --save_freq 10 \
+  --input_size 224 \
+  --byol_hidden_dim 512 \
+  --byol_dim 128 \
+  --aug_plus \
+  --data /root/checkpoints/imagenet_9class \
+  --save_dir '/root/checkpoints/selfsup/9class_imagenet'

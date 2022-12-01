@@ -1,0 +1,1 @@
+python LWBC_imagenet.py --alpha=0.02 --batch_size=128 --classifier=2linear --dataset=imagenet --epoch=100 --kd_lambda=0.6 --kd_temperature=1 --loss_scale=1 --lr=0.0001 --num_classifier=30 --optimizer=Adam --seed=42 --set_size=80 --temperature=180 --warmup=5 --weight_decay=0
