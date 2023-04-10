@@ -1,4 +1,4 @@
-python main_byol_pretraining.py \
+python main_byol.py \
   -a resnet18 \
   --lr 0.015 \
   --batch_size 256 --epochs 200 \
