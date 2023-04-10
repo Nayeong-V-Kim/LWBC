@@ -182,7 +182,23 @@ def main_worker(gpu, ngpus_per_node, args):
 
     # create model
     print("=> creating model '{}'".format(args.arch))
-    model = byol.builder.BYOL(models.__dict__[args.arch](pretrained=False), image_size=args.input_size, projection_hidden_size=args.byol_hidden_dim, projection_size=args.byol_dim)
+    if args.load_pretrain != 'no':
+        print("Load pretrained self-supervised model")
+        pretrained_model = models.__dict__[args.arch](pretrained=False)
+        ckpt_path = os.path.join('./pretrained_model', 'compress_1q_s_resnet18_t_swav_resnet50.pth')
+        cp = torch.load(ckpt_path)
+        state_dict = cp['model']
+        for k in list(state_dict.keys()):
+            # retain only encoder up to before the embedding layer
+            if k.startswith('module') and not k.startswith('module.fc'):
+                # remove prefix
+                state_dict[k[len("module."):]] = state_dict[k]
+            # delete renamed or unused k
+            del state_dict[k]
+        pretrained_model.load_state_dict(state_dict, strict=False)
+        model = byol.builder.BYOL(pretrained_model, image_size=args.input_size, projection_hidden_size=args.byol_hidden_dim, projection_size=args.byol_dim)
+    else:
+        model = byol.builder.BYOL(models.__dict__[args.arch](pretrained=False), image_size=args.input_size, projection_hidden_size=args.byol_hidden_dim, projection_size=args.byol_dim)
     
     args.warmup_epochs = 0
     # warm-up for large-batch training,
@@ -273,7 +289,7 @@ def main_worker(gpu, ngpus_per_node, args):
                 save_checkpoint({
                     'epoch': epoch + 1,
                     'arch': args.arch,
-                    'state_dict': model.module.state_dict(), #model.module.online_encoder.state_dict(),
+                    'state_dict': model.module.online_encoder.state_dict(),
                     'optimizer' : optimizer.state_dict(),
                 }, is_best=False, root=args.save_dir, filename='checkpoint_{:04d}.pth.tar'.format(epoch))
     train_end = time.time()

@@ -1,0 +1,13 @@
+python main_byol.py \
+  -a resnet18 \
+  --lr 0.05 \
+  --batch_size 64 --epochs 200 \
+  --gpus 0 \
+  --input_size 224 \
+  --byol_hidden_dim 256 \
+  --byol_dim 64 \
+  --save_freq 1 \
+  --aug_plus \
+  --load_pretrain 'yes' \
+  --data ../BAR-master/classwise \
+  --save_dir './bar_checkpoints'

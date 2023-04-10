@@ -49,15 +49,45 @@ cd SSL
 ```
 
 ## Data 
-CelebA: https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html
+The dataset download: [CelebA](https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html),
+[BAR](https://github.com/alinlab/BAR), 
+[NICO](https://github.com/Wangt-CN/CaaM)
 
 
-To run, please see byol/byol_celebA.sh or byoll/byol_imagenet9.sh
+The SSL code assumes that the dataset folder is structured as follows.
+```
+Dataset_name
+├── train
+│   ├── class0
+│   ├── class1
+│   ├── class2
+│   └── ...
+├── val
+│   ├── class0
+│   ├── class1
+│   ├── class2
+│   └── ...
+└── test
+    ├── class0
+    ├── class1
+    ├── class2
+    └── ...
+
+```
+
+### Initial parameter for small datasets
+In case of BAR, we initialize resnet18 with imagenet pretrained self-supervied model. Please download the file and place it in the pretrained_model folder under the SSL directory. Here is the link: [CompRess(Resnet18) teacher model SwAV](https://drive.google.com/file/d/1ZtPUAuq_S6-Yqtuajb-BdffKm--eyxPw/view?usp=sharing) which is provided by Official code of [CompRess: Self-Supervised Learning by Compressing Representations (NeurIPS 2020)](https://github.com/UMBCvision/CompRess)
+
+
+To run, please see the scripts
 ```
 bash byol_celebA.sh
+bash byol_imagenet9.sh
+bash byol_bar.sh
+bash byol_nico.sh
 ```
 
-This code is orginated from https://github.com/CupidJay/Scaled-down-self-supervised-learning.
+This SSL code of is orginated from https://github.com/CupidJay/Scaled-down-self-supervised-learning.
 We borrow byol folder from above repository.
 
 
